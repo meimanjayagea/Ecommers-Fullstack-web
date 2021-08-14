@@ -9,6 +9,11 @@ use App\Models\product;
 class Category extends Model
 {
     use HasFactory;
+    public $table = "categories";
+
+    protected $fillable = [
+        'id', 'name',
+    ];
 
     public function products()
     {

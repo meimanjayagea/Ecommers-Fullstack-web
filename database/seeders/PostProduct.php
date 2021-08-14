@@ -16,11 +16,15 @@ class PostProduct extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach(range(1,10) as $index){
+        foreach(range(1,12) as $index){
             DB::table('products')->insert([
                 'kode' => $faker->unique()->randomNumber(),
                 'name' => $faker->name,
-                'gambar_product' => $faker->name.'.jpg',
+                'gambar_product' => $index.'.jpg',
+                'gambar_satu' => 1 .'.jpg',
+                'gambar_dua' => 2 .'.jpg',
+                'gambar_tiga' => 3 .'.jpg',
+                'gambar_empat' => 4 .'.jpg',
                 'harga' =>rand(100000, 500000),
                 'stock' => $faker->randomNumber(),
                 'varian' => $faker->word(),

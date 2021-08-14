@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\List_ItemController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\productController;
+use App\Http\Controllers\orderanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,15 +21,21 @@ use App\Http\Controllers\Admin\productController;
 
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/category', [ProductController::class, 'category'] );
-Route::get('/cart', [ProductController::class, 'cart'] );
-Route::get('/checkout', [ProductController::class, 'checkout'] );
-Route::get('/contact', [ProductController::class, 'contact'] );
+
+Route::get('view/{id}', [orderanController::class, 'index'] );
+
+Route::get('pesan/{id}', [orderanController::class, 'order'] );
+
+// Route::get('Product/order', [orderanController::class, 'order'] );
+
+// Route::get('contact', [HomeController::class, 'contact'] );
 
 
 //admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isadmin: ADMIN']], function () {
     Route::get('/', [IndexController::class, 'index']);
+ 
+    // Route::get('/', [IndexController::class, 'orderDashboard']);
     Route::resource('/user', UserController::class);
     Route::resource('/product', ProductController::class);
 

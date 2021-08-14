@@ -19,26 +19,49 @@
                     <div class="user-panel">
                         <div class="up-item">
                             <div class="shopping-card">
-                                <i class="flaticon-bag"></i>
-                                <span>0</span>
+                                
+                                @guest
+                                @if (!Auth::user())
+                                <a href="/">
+                                    <i class="flaticon-bag"></i>
+                                    <span>0</span>
+                                </a>
+                                @endif
+                                @else
+                                <?php 
+                                $pesanan_utama = \App\Models\Order::where('user_id', Auth::user()->id)->where('status',0)->first();
+                                 if(!empty($pesanan_utama))
+                                    {
+                                     $notif = \App\Models\Order_Item::where('order_id', $pesanan_utama->id)->count(); 
+                                    }
+                                ?>
+                                <a href="/">
+                                    <i class="flaticon-bag"></i>
+                                    @if(!empty($notif))
+                                    <span>{{ $notif }}</span>
+                                    @endif
+                                </a>
+                                @endguest
+
+
                             </div>
-                            <a href="/">Shopping Cart</a>
+                            <a href="/">Keranjang</a>
                         </div>
                         <div class="up-item">
                             @guest
                             @if (Route::has('login'))
-                            <a href="{{ route('login') }}">Sign</a> In
+                            <a href="{{ route('login') }}">Masuk</a>
                             @endif
-                            or
+                            atau
                             @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Create Account</a>
+                            <a href="{{ route('register') }}">Daftar</a>
                             @endif
                             @else
                             <div class="d-flex">
                                 <p class="mx-2 btn">{{ Auth::user()->name }}</p>
                                 <p><a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                                     keluar</a>
+                                        keluar</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -56,30 +79,12 @@
             <!-- menu -->
             <ul class="main-menu">
                 <li><a href="/">Home</a></li>
-                <li><a href="/">Women</a></li>
-                <li><a href="/">Men</a></li>
-                <li><a href="/">Jewelry
-                        <span class="new">New</span>
-                    </a></li>
-                <li><a href="#">Shoes</a>
-                    <ul class="sub-menu">
-                        <li><a href="/">Sneakers</a></li>
-                        <li><a href="/">Sandals</a></li>
-                        <li><a href="/">Formal Shoes</a></li>
-                        <li><a href="/">Boots</a></li>
-                        <li><a href="/">Flip Flops</a></li>
-                    </ul>
-                </li>
-                <li><a href="/">Pages</a>
-                    <ul class="sub-menu">
-                        <li><a href="/product">Product Page</a></li>
-                        <li><a href="/category">Category Page</a></li>
-                        <li><a href="/cart">Cart Page</a></li>
-                        <li><a href="/checkout">Checkout Page</a></li>
-                        <li><a href="/contact">Contact Page</a></li>
-                    </ul>
-                </li>
-                <li><a href="/">Blog</a></li>
+                <li><a href="/" name="women">Pakaian Wanita</a></li>
+                <li><a href="/" name="men">Pakaian Pria</a></li>
+                <li><a href="/" name="belt">Sepatu Wanita</a></li>
+                <li><a href="/" name="hat">Sepatu Pria</a></li>
+                <li><a href="/" name="shoes">Jam Tangan</a></li>
+                <li><a href="/">Kontak</a></li>
             </ul>
         </div>
     </nav>

@@ -8,7 +8,7 @@
 				<div class="col-lg-3 col-sm-6">
 					<div class="footer-widget about-widget">
 						<h2>About</h2>
-						<p>Donec vitae purus nunc. Morbi faucibus erat sit amet congue mattis. Nullam frin-gilla faucibus urna, id dapibus erat iaculis ut. Integer ac sem.</p>
+						<p>FireShop adalah aplikasi e-commers fishion wanita dan pria pertama di indonesia. aplikasi ini bertujuan untuk membantu orang-orang untuk mencari product fishion lainnya.</p>
 						<img src="img/cards.png" alt="">
 					</div>
 				</div>
@@ -60,19 +60,19 @@
 						<h2>Questions</h2>
 						<div class="con-info">
 							<span>C.</span>
-							<p>Your Company Ltd </p>
+							<p>fireshop.com </p>
 						</div>
 						<div class="con-info">
 							<span>B.</span>
-							<p>1481 Creekside Lane  Avila Beach, CA 93424, P.O. BOX 68 </p>
+							<p>Jl. Garuda No.17 - Sleman Yogyakarta 55721  </p>
 						</div>
 						<div class="con-info">
 							<span>T.</span>
-							<p>+53 345 7953 32453</p>
+							<p>+62 8234 9393</p>
 						</div>
 						<div class="con-info">
 							<span>E.</span>
-							<p>office@youremail.com</p>
+							<p>officefireshop@onlineshop.com</p>
 						</div>
 					</div>
 				</div>

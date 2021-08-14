@@ -27,11 +27,9 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+                <a href="../../index2.html" class="h1"><b>F<span style="color: red;">i</span>re</b> Shop</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
-
                 <form action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
@@ -76,7 +74,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -93,10 +91,10 @@
                 <!-- /.social-auth-links -->
 
                 <p class="mb-1">
-                    <a href="{{ route('password.request') }}">I forgot my password</a>
+                    <a href="{{ route('password.request') }}">Lupa Password</a>
                 </p>
                 <p class="mb-0">
-                    <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
+                    <a href="{{ route('register') }}" class="text-center">Daftar</a>
                 </p>
             </div>
             <!-- /.card-body -->

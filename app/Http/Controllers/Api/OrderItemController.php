@@ -35,7 +35,7 @@ class OrderItemController extends Controller
 
         $data = $request->all();
         Order_Item::create($data);
-        $orderitem = Order_Item::where('order_id', $data['order_id'])->get();
+        $orderitem = Order_Item::with('product')->where('order_id', $data['order_id'])->get();
 
         if (is_null($orderitem)) {
             return response()->json(['message' => ' Data tidak ditemukan!']);
@@ -51,7 +51,7 @@ class OrderItemController extends Controller
 
     public function edit($order_id, $id)
     {
-        $data = Order_Item::where('order_id', $order_id)->where('id', $id)->get();
+        $data = Order_Item::with('product')->where('order_id', $order_id)->where('id', $id)->get();
 
         if (is_null($data)) {
             return response()->json(['message' => ' Data tidak ditemukan!']);
@@ -68,7 +68,7 @@ class OrderItemController extends Controller
             'qty' => 'required|integer'
         ]);
 
-        $data = Order_Item::where('order_id', $order_id)->where('id', $id)->update(
+        $data = Order_Item::with('product')->where('order_id', $order_id)->where('id', $id)->update(
             [
                 'order_id' => $request->order_id,
                 'product_id' => $request->product_id,
@@ -78,7 +78,7 @@ class OrderItemController extends Controller
         if (is_null($data)) {
             return response()->json(['message' => ' Data tidak ditemukan!']);
         }
-        $orderitem = Order_Item::where('id', $id)->get();
+        $orderitem = Order_Item::with('product')->where('id', $id)->get();
         return response()->json(['data' => $orderitem]);
     }
 
@@ -86,7 +86,7 @@ class OrderItemController extends Controller
     public function destroy($order_id, $id)
     {
         Order_Item::where('order_id', $order_id)->where('id', $id)->delete();
-        $orderitem = Order_Item::where('order_id', $order_id)->get();
+        $orderitem = Order_Item::with('product')->where('order_id', $order_id)->get();
 
         if (is_null($orderitem)) {
             return response()->json(['message' => ' Data tidak bisa dihapus!']);

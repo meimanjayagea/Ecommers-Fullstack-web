@@ -19,6 +19,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->date('tanggal_order');
+            $table->integer('status');
+            $table->integer('jumlah_harga');
             $table->timestamps();
         });
 
@@ -29,6 +31,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('qty');
+            $table->integer('kode_unik');
             $table->timestamps();
         });
     }

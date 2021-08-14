@@ -17,14 +17,17 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
         ]);
+        $this->call([
+            CategoryProduct::class,
+        ]);
+        $this->call([
+            PostProduct::class,
+        ]);
         
         $this->call([
             KategoriSeeder::class,
         ]);
         
-        $this->call([
-            PostProduct::class,
-        ]);
         
     }
 }

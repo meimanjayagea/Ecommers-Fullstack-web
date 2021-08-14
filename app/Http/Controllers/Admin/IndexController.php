@@ -3,17 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use App\Models\Category;
+use App\Models\Order_Item;
+use App\Models\product;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Order;
 
 class IndexController extends Controller
 {
 
     public function index()
     {
-        $cP = DB::table('products')->get()->count();
-        $cO = DB::table('orders')->get()->count();
-        $cU = DB::table('users')->where('level', 'USER')->get()->count();
-        return view('/admin/dashboard', compact('cP', 'cU', 'cO'));
+        $products = product::get();
+        $orders = Order::get();
+        $kategori = Category::get();
+        $users =  User::where('level', 'USER')->get();
+        $orders_item = Order_Item::get();
+
+
+        return view('/admin/dashboard', compact('products', 'orders', 'users','orders_item','kategori'));
     }
+
+    
 }

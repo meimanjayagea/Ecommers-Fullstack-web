@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\kategori;
+use App\Models\Menu;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+
 
 
 class KategoriSeeder extends Seeder
@@ -16,12 +16,39 @@ class KategoriSeeder extends Seeder
      */
     public function run()
     {
-        foreach(range(1,5) as $index)
-        {
-            DB::table('categories')->insert([
-            'name' => 'kategori '.$index
-            ]);
-    
+        $menu = [
+            [
+                'menu' => 'Home',
+                'status' => 'AKTIF',
+            ],
+            [
+                'menu' => 'Women',
+                'status' => 'AKTIF',
+            ],
+            [
+                'menu' => 'Men',
+                'status' => 'AKTIF',
+            ],
+            [
+                'menu' => 'Belt',
+                'status' => 'AKTIF',
+            ],
+            [
+                'menu' => 'Hat',
+                'status' => 'AKTIF',
+            ],
+            [
+                'menu' => 'Shoes',
+                'status' => 'AKTIF',
+            ],
+            [
+                'menu' => 'Contact',
+                'status' => 'AKTIF',
+            ]
+
+        ];
+        foreach ($menu as $key => $value) {
+            Menu::create($value);
         }
     }
 }

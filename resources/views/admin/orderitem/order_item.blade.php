@@ -36,37 +36,38 @@
                         </div>
                         <div class="card-body">
 
-                                <form action="{{url('admin/order/'.$id.'/create')}}" method="POST"
-                                    enctype="multipart/form-data" id="form-order-item">
-                                    @csrf
+                            <form action="{{url('admin/order/'.$id.'/create')}}" method="POST"
+                                enctype="multipart/form-data" id="form-order-item">
 
-                                    <input type="hidden" name="order_id" value="{{$id}}" id="order_id">
-                                    <div class="form-row">
-                                        <div class="col-md-4 mb-3">
-                                            <label for="product_id">Name Product</label>
-                                            <select class="form-control" name="product_id" id="product_id">
-                                                @foreach ($products as $product)
-                                                <option value="{{$product->id}}"
-                                                    {{ (old('product') == $product->name) ? 'selected' : '' }}>
-                                                    {{$product->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                @csrf
 
-                                        <div class="col-md-4 mb-3">
-                                            <label for="qty">QTY</label>
-                                            <input type="number" class="form-control @error('qty') is-invalid @enderror"
-                                                name="qty" id="qty">
+                                <input type="hidden" name="order_id" value="{{$id}}" id="order_id">
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="product_id">Name Product</label>
+                                        <select class="form-control" name="product_id" id="product_id">
+                                            @foreach ($products as $product)
 
-                                            @error('qty')
-                                            <div class="alert alert-danger">{{$message}} </div>
-                                            @enderror
-                                        </div>
+                                            <option value="{{$product->id}}"
+                                                {{ (old('product') == $product->name) ? 'selected' : '' }}>
+                                                {{$product->name}}</option>
+                                            @endforeach
+
+                                        </select>
                                     </div>
 
-                                    <input type="submit" class="btn btn-primary ml-3 mb-3"
-                                        name="submit"></button>
-                                </form>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="qty">QTY</label>
+                                        <input type="number" class="form-control @error('qty') is-invalid @enderror"
+                                            name="qty" id="qty">
+
+                                        @error('qty')
+                                        <div class="alert alert-danger">{{$message}} </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <input type="submit" name="submit" class="btn btn-primary ml-2 mb-3" name="submit"></button>
+                            </form>
 
                             <table id="order" class="table table-bordered table-striped">
                                 <thead>
@@ -117,27 +118,71 @@
     <!-- /.content -->
 </div>
 @endsection
-@push('script')
-    <script>
-        $(document).ready(function(){
-            $('#form-order-item').on('submit', function(e){
-                e.preventDefault();
-                const order_id = $('#order_id').val();
-                const order_id = $('#product_id').val();
-                const order_id = $('#qty').val();
 
-                $ajax({
-                    type: 'Post',
-                    url : '/api/order/order_item/' + order_id,
-                    data: {
-                        'order_id' : order_id,
-                        'product_id' : product_id,
-                        'qty' : qty
-                },
-                su
-                })
+@push('scrips')
+<script>
+    // $(document).ready(function () {
+    //     $('#form-order-item').on('submit', function (e) {
+    //         e.preventDefault();
+            
+
+    //         const order_id = $('#order_id').val();
+    //         const product_id = $('#product_id').val();
+    //         const qty = $('#qty').val();
+
+    //         $ajax({
+    //             type: 'POST',
+    //             url: '/api/order/order_item/' + order_id,
+    //             data: {
+    //                 'order_id': order_id,
+    //                 'product_id': product_id,
+    //                 'qty': qty
+    //             },
+    //             succes: function (result) {
+    //                 $('#data-item').html(updateTable(result.data));
+    //                 $('#qty').val('');
+    //             }
+    //         })
+    //     })
+    // })
+
+    $(document).on('click', function(e){
+        if($(e.target).hasClass('btn-delete')){
+            const order_id = $(e.target).data('order_id');
+            const id = $(e.target).data('id');
+
+            $.ajax({
+                type: 'DELETE',
+                url: `/api/order/${order_id}/orders_item/${id}`,
+
+                succes: function (result) {
+                    $('#data-item').html(updateTable(result.data));
+                }
             })
-        })
+        }
+    })
 
-    </script>
+    function updateTable(data) {
+        let table = '';
+        data.foreach((d, i) => {
+            table += `
+                <tr>
+                    <td>{i+1}</td>
+                    <td>{d.product.name}</td>
+                    <td>{d.qty}</td>
+                    <td>
+                        <a href=""><i class="fas fa-edit"></i></a>
+                            ||
+                        <button type="button" class="btn btn-delete"
+                        data-order-id="${d.order_id}"
+                        data-id="${d.id}"
+                        onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">
+                        <i class="fas fa-trash"></i> </button>
+                </tr>
+                `;
+            })
+        return table
+    }
+
+</script>
 @endpush
